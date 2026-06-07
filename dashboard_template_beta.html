@@ -501,7 +501,7 @@ function asetChip(x){const up=x.day>=0;
  const bot=x.ref?'<div class="d" style="color:var(--muted)">reference</div>':'<div class="d num '+(up?'up':'down')+'">'+(up?'+':'')+x.day.toFixed(2)+'%</div>';
  return '<div class="aset '+cls+'" data-id="'+x.id+'"><div class="t"><span class="srcdot '+dot+'"></span>'+x.id+'</div>'+mid+bot+'</div>';}
 document.getElementById('assets-live').innerHTML=LIVE.slice(0,6).map(id=>asetChip({...A[id],live:true,ref:false})).join('');
-document.getElementById('assets-quote').innerHTML=[...LIVE.slice(6).map(id=>asetChip({...A[id],live:true,ref:false})),...Q.map(q=>({...q,live:false,ref:false})),...GCCREF].map(asetChip).join('');
+document.getElementById('assets-quote').innerHTML=[...LIVE.slice(6).map(id=>({...A[id],live:true,ref:false})),...Q.map(q=>({...q,live:false,ref:false})),...GCCREF].map(asetChip).join('');
 function syncSel(){document.querySelectorAll('.aset').forEach(e=>e.classList.toggle('on',e.dataset.id===curAsset));document.querySelectorAll('.wm').forEach(e=>e.classList.toggle('on',e.dataset.id===planAsset));}
 window.pick=function(id){curAsset=id;syncSel();drawMain();if(byId(id))planSelect(id,false);};
 document.querySelectorAll('.aset').forEach(e=>e.onclick=()=>window.pick(e.dataset.id));
