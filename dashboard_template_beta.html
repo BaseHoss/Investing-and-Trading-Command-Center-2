@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bassem &#xB7; Investing &amp; Trading Command Center (beta)</title>
+<title>Bassem &#xB7; Investing &amp; Trading Command Center (Model 2)</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.js"></script>
 <style>
 *{box-sizing:border-box}
@@ -387,7 +387,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);line
   <div class="card runstatus">
     <span>&#x1F550; Last refresh <b id="rm-time">&#x2026;</b></span><span>&#x23F1;&#xFE0F; Build time <b id="rm-dur">&#x2026;</b></span><span>&#x1F4E1; Data calls <b id="rm-calls">&#x2026;</b></span><span>&#x1F517; Commit <b id="rm-sha">&#x2026;</b></span><span>&#x1FA99; Tokens <b id="rm-tok">&#x2026;</b></span><span>&#x1F4DA; Lookback <b>36 months</b></span><span style="margin-left:auto">&#x1F3F7;&#xFE0F; Build <b id="rm-ver">&#x2026;</b></span>
   </div>
-  <div class="foot">Investing &amp; Trading Command Center (beta) &#xB7; local preview build &#xB7; not yet deployed &#xB7; theme toggle in the top bar.</div>
+  <div class="foot">Investing &amp; Trading Command Center (Model 2) &#xB7; data refreshes daily via GitHub Actions &#xB7; theme toggle in the top bar.</div>
 </div>
 <script>
 window.DASH = __DATA__;
@@ -395,7 +395,7 @@ window.DASH = __DATA__;
    1. Fixed grids; desktop rows always full. Explorer = 2 labeled rows of 6 (live / quote+ref).
    2. One build, two pages (#page-pulse informs, #page-plan acts), toggled, state persisted.
    3. All sections derive from the data file at render time. 12-month lookback, date-based windows. */
-function applyTheme(d){document.documentElement.setAttribute('data-design',d);document.body.setAttribute('data-design',d);const b=document.getElementById('thbtn');if(b)b.textContent=d==='a'?'◐ Theme: Midnight':'◐ Theme: Graphite';}
+function applyTheme(d){document.documentElement.setAttribute('data-design',d);document.body.setAttribute('data-design',d);const b=document.getElementById('thbtn');if(b)b.textContent=d==='a'?'\u25D0 Theme: Midnight':'\u25D0 Theme: Graphite';}
 window.toggleTheme=function(){const cur=document.body.getAttribute('data-design')==='a'?'b':'a';try{localStorage.setItem('beta_theme',cur)}catch(e){};applyTheme(cur);drawMain();renderSparks();};
 try{applyTheme(localStorage.getItem('beta_theme')==='b'?'b':'a');}catch(e){applyTheme('a');}
 const A=DASH.assets,Q=DASH.quoteOnly;
@@ -433,15 +433,15 @@ window.showPage=function(p){document.getElementById('page-pulse').classList.togg
 const avg=ALL.reduce((s,a)=>s+a.day,0)/ALL.length;
 const breadth=ALL.filter(a=>a.day>=0).length/ALL.length;
 let score=Math.round(50+avg*7+(breadth-0.5)*40);score=Math.max(4,Math.min(96,score));
-const MLAB=score<20?['Risk-off · Fear','var(--red)']:score<40?['Caution','var(--amber)']:score<60?['Neutral','var(--muted)']:score<80?['Constructive','var(--green)']:['Risk-on','var(--green)'];
+const MLAB=score<20?['Risk-off \u00B7 Fear','var(--red)']:score<40?['Caution','var(--amber)']:score<60?['Neutral','var(--muted)']:score<80?['Constructive','var(--green)']:['Risk-on','var(--green)'];
 (function(){const ang=(-90+score*1.8)*Math.PI/180;const nx=70+52*Math.sin(ang),ny=64-52*Math.cos(ang);
  document.getElementById('gauge').innerHTML='<svg width="140" height="74" viewBox="0 0 140 74"><path d="M14 64 A56 56 0 0 1 42 16" fill="none" stroke="#f4516c" stroke-width="9" stroke-linecap="round" opacity=".85"/><path d="M46 13 A56 56 0 0 1 94 13" fill="none" stroke="#f5a524" stroke-width="9" stroke-linecap="round" opacity=".85"/><path d="M98 16 A56 56 0 0 1 126 64" fill="none" stroke="#26d07c" stroke-width="9" stroke-linecap="round" opacity=".85"/><line x1="70" y1="64" x2="'+nx.toFixed(1)+'" y2="'+ny.toFixed(1)+'" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><circle cx="70" cy="64" r="5" fill="currentColor"/></svg>';
- const ml=document.getElementById('mlab');ml.textContent=MLAB[0]+' · '+score+'/100';ml.style.color=MLAB[1];})();
+ const ml=document.getElementById('mlab');ml.textContent=MLAB[0]+' \u00B7 '+score+'/100';ml.style.color=MLAB[1];})();
 
 /* strip */
-const vixTick=DASH.vix?('<div class="tick"><div class="nm">VIX · fear gauge</div><div class="px num">'+DASH.vix.px.toFixed(2)+'</div><div class="ch num '+(DASH.vix.day>=0?'down':'up')+'">'+(DASH.vix.day>=0?'▲ +':'▼ ')+DASH.vix.day.toFixed(1)+'%</div></div>'):'';
+const vixTick=DASH.vix?('<div class="tick"><div class="nm">VIX \u00B7 fear gauge</div><div class="px num">'+DASH.vix.px.toFixed(2)+'</div><div class="ch num '+(DASH.vix.day>=0?'down':'up')+'">'+(DASH.vix.day>=0?'\u25B2 +':'\u25BC ')+DASH.vix.day.toFixed(1)+'%</div></div>'):'';
 document.getElementById('strip').innerHTML=vixTick+ALL.map(a=>{const up=a.day>=0;
- return '<div class="tick"><div class="nm">'+a.id+' · '+a.name+'</div><div class="px num">'+a.cur+fmt(a.px)+'</div><div class="ch num '+(up?'up':'down')+'">'+(up?'▲ +':'▼ ')+a.day.toFixed(2)+'%</div></div>';}).join('');
+ return '<div class="tick"><div class="nm">'+a.id+' \u00B7 '+a.name+'</div><div class="px num">'+a.cur+fmt(a.px)+'</div><div class="ch num '+(up?'up':'down')+'">'+(up?'\u25B2 +':'\u25BC ')+a.day.toFixed(2)+'%</div></div>';}).join('');
 
 /* sparklines (12-month shape) */
 function spark(prices,color,h){const w=200;const min=Math.min(...prices),max=Math.max(...prices),r=(max-min)||1;
@@ -449,7 +449,7 @@ function spark(prices,color,h){const w=200;const min=Math.min(...prices),max=Mat
  const last=pts.split(' ').pop();
  return '<svg viewBox="0 0 '+w+' '+h+'" preserveAspectRatio="none"><polyline points="'+pts+'" fill="none" stroke="'+color+'" stroke-width="1.7" vector-effect="non-scaling-stroke"/><circle cx="'+last.split(',')[0]+'" cy="'+last.split(',')[1]+'" r="2.4" fill="'+color+'"/></svg>';}
 function renderSparks(){document.querySelectorAll('[data-spark]').forEach(el=>{const a=A[el.dataset.spark];
- if(!a){el.innerHTML='<div style="font-size:9.5px;font-weight:800;color:var(--muted);margin-top:10px">quote only · no price history</div>';return;}
+ if(!a){el.innerHTML='<div style="font-size:9.5px;font-weight:800;color:var(--muted);margin-top:10px">quote only \u00B7 no price history</div>';return;}
  const yr=windowSlice(a,'1Y').prices;const up=pct(yr)>=0;el.innerHTML=spark(yr,up?cssv('--green'):cssv('--red'),el.classList.contains('ospark')?30:34);});}
 
 /* Price Explorer: hub of ALL positions in two labeled rows */
@@ -463,20 +463,20 @@ function drawMain(){
   const q=Q.find(x=>x.id===curAsset);const g=GCCREF.find(x=>x.id===curAsset);
   if(q){
    document.getElementById('cs-px').textContent=q.cur+fmt(q.px);
-   document.getElementById('cs-nm').textContent=q.id+' · '+q.name;
+   document.getElementById('cs-nm').textContent=q.id+' \u00B7 '+q.name;
    const mv=document.getElementById('cs-mv');mv.textContent=(q.day>=0?'+':'')+q.day.toFixed(2)+'% today';mv.className='mv num '+(q.day>=0?'up':'down');
    const rb=RECMAP[q.rec];const re=document.getElementById('cs-rec');re.textContent=rb[1];re.className='badge '+rb[0];re.style.display='';
-   document.getElementById('ce1').textContent='Quote only · no trend data';
+   document.getElementById('ce1').textContent='Quote only \u00B7 no trend data';
    document.getElementById('ce2').textContent=q.id+' shows its latest price, but daily price history needs a higher FMP data tier. The number above is real and current; there is just no curve to draw yet.';
-   document.getElementById('chnote').textContent='ℹ '+q.id+' · latest quote only · no price history available.';
+   document.getElementById('chnote').textContent='\u2139 '+q.id+' \u00B7 latest quote only \u00B7 no price history available.';
   }else if(g){
    document.getElementById('cs-px').textContent='n/a';
-   document.getElementById('cs-nm').textContent=g.id+' · '+g.name;
+   document.getElementById('cs-nm').textContent=g.id+' \u00B7 '+g.name;
    const mv=document.getElementById('cs-mv');mv.textContent='';mv.className='mv num';
    const re=document.getElementById('cs-rec');re.textContent='Reference';re.className='badge b-ref';re.style.display='';
-   document.getElementById('ce1').textContent='Reference thesis · no live quote yet';
+   document.getElementById('ce1').textContent='Reference thesis \u00B7 no live quote yet';
    document.getElementById('ce2').textContent=g.name+' is tracked as an investment thesis. Live GCC market quotes (ADX, DFM, Tadawul) are on the data roadmap.';
-   document.getElementById('chnote').textContent='ℹ '+g.id+' · GCC reference position · live quotes coming with the GCC data source.';
+   document.getElementById('chnote').textContent='\u2139 '+g.id+' \u00B7 GCC reference position \u00B7 live quotes coming with the GCC data source.';
   }
   return;
  }
@@ -484,10 +484,10 @@ function drawMain(){
  const a=live;const sl=windowSlice(a,curDur);const chg=pct(sl.prices);const up=chg>=0;
  const line=up?cssv('--green'):cssv('--red');
  document.getElementById('cs-px').textContent=a.cur+fmt(a.px);
- document.getElementById('cs-nm').textContent=a.id+' · '+a.name;
+ document.getElementById('cs-nm').textContent=a.id+' \u00B7 '+a.name;
  const mv=document.getElementById('cs-mv');mv.textContent=(chg>=0?'+':'')+chg.toFixed(2)+'% ('+curDur+')';mv.className='mv num '+(up?'up':'down');
  const rb=RECMAP[a.rec];const re=document.getElementById('cs-rec');re.textContent=rb[1];re.className='badge '+rb[0];re.style.display='';
- document.getElementById('chnote').textContent='● Real closes · '+a.id+' · '+sl.dates[0]+' → '+sl.dates[sl.dates.length-1]+(curDur==='1D'?' (latest session; intraday needs a data upgrade)':'')+' · daily for the last 3 months, every 2nd session to mid-2025, weekly back to 2023.';
+ document.getElementById('chnote').textContent='\u25CF Real closes \u00B7 '+a.id+' \u00B7 '+sl.dates[0]+' \u2192 '+sl.dates[sl.dates.length-1]+(curDur==='1D'?' (latest session; intraday needs a data upgrade)':'')+' \u00B7 daily for the last 3 months, every 2nd session to mid-2025, weekly back to 2023.';
  const ctx=cv;if(mainChart)mainChart.destroy();
  const g2=ctx.getContext('2d').createLinearGradient(0,0,0,260);
  g2.addColorStop(0,up?'rgba(38,208,124,.22)':'rgba(244,81,108,.2)');g2.addColorStop(1,'rgba(0,0,0,0)');
@@ -497,7 +497,7 @@ function drawMain(){
 function asetChip(x){const up=x.day>=0;
  const cls=x.ref?'t-ref':(x.live?'t-live':'t-quote');
  const dot=x.ref?'s-ref':(x.live?'s-live':'s-quote');
- const mid=x.ref?'<div class="p">GCC · roadmap</div>':'<div class="p num">'+x.cur+fmt(x.px)+'</div>';
+ const mid=x.ref?'<div class="p">GCC \u00B7 roadmap</div>':'<div class="p num">'+x.cur+fmt(x.px)+'</div>';
  const bot=x.ref?'<div class="d" style="color:var(--muted)">reference</div>':'<div class="d num '+(up?'up':'down')+'">'+(up?'+':'')+x.day.toFixed(2)+'%</div>';
  return '<div class="aset '+cls+'" data-id="'+x.id+'"><div class="t"><span class="srcdot '+dot+'"></span>'+x.id+'</div>'+mid+bot+'</div>';}
 document.getElementById('assets-live').innerHTML=LIVE.slice(0,6).map(id=>asetChip({...A[id],live:true,ref:false})).join('');
@@ -509,14 +509,14 @@ document.querySelectorAll('#dur button').forEach(b=>b.onclick=()=>{curDur=b.data
 
 /* Watchlist mini cards: Plan loads the planner, no page jump */
 document.getElementById('wgrid').innerHTML=ALL.map(a=>{const up=a.day>=0;
- return '<div class="wm" data-id="'+a.id+'" onclick="planFrom(\''+a.id+'\')"><div class="t"><span class="srcdot '+(a.prices?'s-live':'s-quote')+'"></span>'+a.id+'</div><div class="p num">'+a.cur+fmt(a.px)+'</div><div class="d num '+(up?'up':'down')+'">'+(up?'▲':'▼')+' '+Math.abs(a.day).toFixed(2)+'%</div><span class="pl">Plan →</span></div>';}).join('');
+ return '<div class="wm" data-id="'+a.id+'" onclick="planFrom(\''+a.id+'\')"><div class="t"><span class="srcdot '+(a.prices?'s-live':'s-quote')+'"></span>'+a.id+'</div><div class="p num">'+a.cur+fmt(a.px)+'</div><div class="d num '+(up?'up':'down')+'">'+(up?'\u25B2':'\u25BC')+' '+Math.abs(a.day).toFixed(2)+'%</div><span class="pl">Plan \u2192</span></div>';}).join('');
 
 /* Position Planner with dual sell mode */
 let TGT={};try{TGT=JSON.parse(localStorage.getItem('beta_targets')||'{}')}catch(e){}
 let planAsset='NVDA';
 function tgtOf(id){TGT[id]=TGT[id]||{mode:'usd'};return TGT[id];}
 function saveTGT(){try{localStorage.setItem('beta_targets',JSON.stringify(TGT))}catch(e){}}
-document.getElementById('p-sel').innerHTML=ALL.map(a=>'<option value="'+a.id+'">'+a.id+' · '+a.name+'</option>').join('');
+document.getElementById('p-sel').innerHTML=ALL.map(a=>'<option value="'+a.id+'">'+a.id+' \u00B7 '+a.name+'</option>').join('');
 document.getElementById('p-sel').addEventListener('change',e=>planSelect(e.target.value,true));
 window.planFrom=function(id){planSelect(id,true);};
 window.planSelect=function(id,prefill){planAsset=id;document.getElementById('p-sel').value=id;
@@ -546,13 +546,13 @@ window.planInput=function(){const t=tgtOf(planAsset);
  planRender();};
 function effSell(a,t){if(t.mode==='pct'){return t.pct?((t.buy||a.px)*(1+t.pct/100)):null;}return t.sell||null;}
 function planRender(){const a=byId(planAsset);const t=tgtOf(planAsset);const px=a.px;const sell=effSell(a,t);
- document.getElementById('v-asset').textContent=a.id+' · '+a.name;
+ document.getElementById('v-asset').textContent=a.id+' \u00B7 '+a.name;
  document.getElementById('p-now').textContent=a.cur+fmt(px);
- const pd=document.getElementById('p-day');pd.textContent=(a.day>=0?'▲ +':'▼ ')+a.day.toFixed(2)+'% today';pd.className='num '+(a.day>=0?'up':'down');
+ const pd=document.getElementById('p-day');pd.textContent=(a.day>=0?'\u25B2 +':'\u25BC ')+a.day.toFixed(2)+'% today';pd.className='num '+(a.day>=0?'up':'down');
  document.getElementById('p-sellhint').textContent=(t.mode==='pct'&&sell)?('= sell at $'+fmt(sell)+' from your buy level'):'';
  const lo=document.getElementById('p-lo'),hi=document.getElementById('p-hi'),dot=document.getElementById('p-dot');
  if(t.buy&&sell&&sell>t.buy){
-  lo.textContent='Buy zone ≤ $'+fmt(t.buy);hi.textContent='Take profit ≥ $'+fmt(sell);
+  lo.textContent='Buy zone \u2264 $'+fmt(t.buy);hi.textContent='Take profit \u2265 $'+fmt(sell);
   let pos=(px-t.buy)/(sell-t.buy);pos=Math.max(0,Math.min(1,pos));dot.style.left=(pos*100).toFixed(1)+'%';
   const dBuy=(px/t.buy-1)*100,dSell=(sell/px-1)*100;
   document.getElementById('s-buy').textContent=(dBuy>=0?'+':'')+dBuy.toFixed(1)+'%';
@@ -573,8 +573,8 @@ function planRender(){const a=byId(planAsset);const t=tgtOf(planAsset);const px=
   document.getElementById('v-msg').innerHTML='At '+a.cur+fmt(px)+', '+zone+', and '+call+' (risk: '+a.risk+'). '+advice;
  }else{
   lo.textContent='Buy zone';hi.textContent='Take-profit zone';dot.style.left='50%';
-  ['s-buy','s-sell','s-rr','s-pnl'].forEach(i=>document.getElementById(i).textContent='…');
-  const vs0=document.getElementById('v-score');vs0.textContent='…';vs0.style.color='';
+  ['s-buy','s-sell','s-rr','s-pnl'].forEach(i=>document.getElementById(i).textContent='\u2026');
+  const vs0=document.getElementById('v-score');vs0.textContent='\u2026';vs0.style.color='';
   const vf0=document.getElementById('v-fill');vf0.style.width='0%';vf0.style.background='';
   document.getElementById('v-msg').textContent='Set your buy level and an exit ($ or %) to get a verdict. Tip: use the Price Explorer to spot recent support and resistance.';
  }}
@@ -701,16 +701,16 @@ window.consult=function(){
  +'<div class="pstat"><div class="k">Horizon</div><div class="v sm">2 to 6 weeks</div></div>';
  const confCol=consRisk==='low'?'var(--green)':consRisk==='med'?'var(--amber)':'var(--red)';
  cardsEl.innerHTML=picks.map(p=>{const a=p.a,st=p.st;
-  const _de=daysToEarn(a);const earnTxt=(a.earnings&&a.earnings.next)?(' · next earnings '+a.earnings.next+(_de!==null&&_de>=0&&_de<=42?(' in '+_de+'d, inside horizon'+(_de<=7?', report imminent':'')):'')):'';
-  const fundTxt=a.fund?(' · '+(a.fund.pe?('P/E '+a.fund.pe+(a.fund.peg?' (PEG '+a.fund.peg+')':'')):('P/E n/a, TTM margin '+a.fund.margin+'%'))+(a.fund.pe?(', net margin '+a.fund.margin+'%'):'')+(a.fund.divy?(', div '+a.fund.divy+'%'):'')):'';
+  const _de=daysToEarn(a);const earnTxt=(a.earnings&&a.earnings.next)?(' \u00B7 next earnings '+a.earnings.next+(_de!==null&&_de>=0&&_de<=42?(' in '+_de+'d, inside horizon'+(_de<=7?', report imminent':'')):'')):'';
+  const fundTxt=a.fund?(' \u00B7 '+(a.fund.pe?('P/E '+a.fund.pe+(a.fund.peg?' (PEG '+a.fund.peg+')':'')):('P/E n/a, TTM margin '+a.fund.margin+'%'))+(a.fund.pe?(', net margin '+a.fund.margin+'%'):'')+(a.fund.divy?(', div '+a.fund.divy+'%'):'')):'';
   const sitTxt=ACTIVE.length?('situational '+(p.adj.c>=0?'+':'')+p.adj.c+' conf ('+ACTIVE.map(id=>SIT[id].label).join(', ')+')'):'no active situations';
-  return '<div class="conscard"><div class="ct"><span class="tk">'+a.id+'</span><span class="alloc num">'+money(p.alloc)+'</span></div><div class="cn">'+a.name+' · '+RECMAP[a.rec][1]+' call · risk '+a.risk+'</div>'
+  return '<div class="conscard"><div class="ct"><span class="tk">'+a.id+'</span><span class="alloc num">'+money(p.alloc)+'</span></div><div class="cn">'+a.name+' \u00B7 '+RECMAP[a.rec][1]+' call \u00B7 risk '+a.risk+'</div>'
   +'<div class="lvls"><div class="lvl"><div class="k">Buy at / below</div><div class="v num">$'+fmt(p.buy)+'</div></div><div class="lvl"><div class="k">Sell at (+'+(p.gain*100).toFixed(1)+'%)</div><div class="v num">$'+fmt(p.sell)+'</div></div></div>'
   +'<div class="lvls"><div class="lvl"><div class="k">Est. profit</div><div class="v num up">+'+money(p.profit)+'</div></div><div class="lvl"><div class="k">Confidence</div><div class="v num">'+p.conf+'%</div></div></div>'
   +'<div class="confrow"><div class="confbar"><i style="width:'+p.conf+'%;background:'+confCol+'"></i></div><span class="cv">'+p.conf+'% est. odds of hitting target</span></div>'
-  +'<div class="crat">'+(st.m1>=0?'+':'')+st.m1.toFixed(1)+'% month · '+(st.m3>=0?'+':'')+st.m3.toFixed(1)+'% quarter · '+(st.m12>=0?'+':'')+st.m12.toFixed(1)+'% year · '+(st.cagr3*100).toFixed(1)+'%/yr 3Y CAGR · '+(st.up*100).toFixed(0)+'% up-days · '+(st.ab10?'above':'below')+' 10s and '+(st.ab50?'above':'below')+' 50s avg · vol ±'+(st.mVol*100).toFixed(1)+'%/mo ('+(st.volReg>1.4?'elevated':st.volReg<0.75?'calm':'normal')+' regime) · worst 3Y drawdown '+(st.maxDD3*100).toFixed(0)+'% · '+(st.dd*100).toFixed(0)+'% off 52w high · entry '+((1-p.buy/a.px)*100).toFixed(1)+'% under today'+earnTxt+fundTxt+' · '+sitTxt+'</div></div>';}).join('');
+  +'<div class="crat">'+(st.m1>=0?'+':'')+st.m1.toFixed(1)+'% month \u00B7 '+(st.m3>=0?'+':'')+st.m3.toFixed(1)+'% quarter \u00B7 '+(st.m12>=0?'+':'')+st.m12.toFixed(1)+'% year \u00B7 '+(st.cagr3*100).toFixed(1)+'%/yr 3Y CAGR \u00B7 '+(st.up*100).toFixed(0)+'% up-days \u00B7 '+(st.ab10?'above':'below')+' 10s and '+(st.ab50?'above':'below')+' 50s avg \u00B7 vol \u00B1'+(st.mVol*100).toFixed(1)+'%/mo ('+(st.volReg>1.4?'elevated':st.volReg<0.75?'calm':'normal')+' regime) \u00B7 worst 3Y drawdown '+(st.maxDD3*100).toFixed(0)+'% \u00B7 '+(st.dd*100).toFixed(0)+'% off 52w high \u00B7 entry '+((1-p.buy/a.px)*100).toFixed(1)+'% under today'+earnTxt+fundTxt+' \u00B7 '+sitTxt+'</div></div>';}).join('');
  limEl.style.display='block';
- limEl.innerHTML='<b>Model basis & limitations.</b> Computed from 36 months of closes in the stock price database (daily last 3 months, every 2nd session to mid-2025, weekly to 2023). Active situations applied via the situational impact log: '+(ACTIVE.length?ACTIVE.map(id=>SIT[id].label).join(' · '):'none')+'. Knowledge base: Analyst_Research_Compendium.md, Investor_Guidebook.md, stock-market-analyst skill. Fundamentals and next-earnings dates are anchored from the FMP Starter tier; earnings inside the 2 to 6 week horizon auto-activate the earnings situation. Not yet seen: intraday prices, order flow, options-implied volatility, structured news sentiment. Avoid-rated assets excluded'+(excluded.length?'; today: '+excluded.join(', '):'')+'. Confidence figures are statistical estimates over a 2 to 6 week horizon, not promises. Backtest (Aug 2024 to Apr 2026, 23 rebalances): 6-week target hit rates 58/43/17% (low/med/high); the score ranking showed no stock-selection edge in that sample, so treat this as risk-managed sizing and levels, not stock-picking alpha.';};
+ limEl.innerHTML='<b>Model basis & limitations.</b> Computed from 36 months of closes in the stock price database (daily last 3 months, every 2nd session to mid-2025, weekly to 2023). Active situations applied via the situational impact log: '+(ACTIVE.length?ACTIVE.map(id=>SIT[id].label).join(' \u00B7 '):'none')+'. Knowledge base: Analyst_Research_Compendium.md, Investor_Guidebook.md, stock-market-analyst skill. Fundamentals and next-earnings dates are anchored from the FMP Starter tier; earnings inside the 2 to 6 week horizon auto-activate the earnings situation. Not yet seen: intraday prices, order flow, options-implied volatility, structured news sentiment. Avoid-rated assets excluded'+(excluded.length?'; today: '+excluded.join(', '):'')+'. Confidence figures are statistical estimates over a 2 to 6 week horizon, not promises. Backtest (Aug 2024 to Apr 2026, 23 rebalances): 6-week target hit rates 58/43/17% (low/med/high); the score ranking showed no stock-selection edge in that sample, so treat this as risk-managed sizing and levels, not stock-picking alpha.';};
 try{const c=JSON.parse(localStorage.getItem('beta_consult')||'{}');if(c.amt)setIn('c-amt',c.amt,0);if(c.risk)consRisk=c.risk;}catch(e){}
 setRisk(consRisk);
 
@@ -721,13 +721,13 @@ ALL.forEach(a=>{const g=a.rec==='trade'?'invest':a.rec;if(groups[g])groups[g].pu
 const GMETA=[['invest','INVEST / ACCUMULATE','var(--green)'],['monitor','MONITOR / WAIT','var(--amber)'],['avoid','AVOID / TRIM','var(--red)']];
 document.getElementById('recgrid').innerHTML=GMETA.map(function(gm){const g=gm[0],ttl=gm[1],col=gm[2];
  return '<div class="reccol"><h4><span class="dotbadge" style="background:'+col+'"></span> '+ttl+'</h4>'+groups[g].map(function(a){const m=mom3(a);
- return '<div class="recitem"><div class="rt"><span>'+a.id+' · '+a.name+'</span><span class="num" style="color:'+col+';font-size:11px">'+(m>=0?'+':'')+m.toFixed(0)+'% 3M</span></div><div class="conv"><i style="width:'+Math.min(Math.abs(m)*1.6+8,100)+'%;background:'+col+'"></i></div><div class="rr">'+a.note+'</div></div>';}).join('')+'</div>';}).join('');
-document.getElementById('actionText').innerHTML='<b>Anchor:</b> '+groups.invest.map(a=>a.id).join(', ')+' · <b>Watch:</b> '+groups.monitor.map(a=>a.id).join(', ')+' · <b>No fresh entries:</b> '+groups.avoid.map(a=>a.id).join(', ')+'. Stage adds gradually; full context in the macro brief above. <i style="opacity:.7">(at release this line is written fresh daily by the 7am run)</i>';
+ return '<div class="recitem"><div class="rt"><span>'+a.id+' \u00B7 '+a.name+'</span><span class="num" style="color:'+col+';font-size:11px">'+(m>=0?'+':'')+m.toFixed(0)+'% 3M</span></div><div class="conv"><i style="width:'+Math.min(Math.abs(m)*1.6+8,100)+'%;background:'+col+'"></i></div><div class="rr">'+a.note+'</div></div>';}).join('')+'</div>';}).join('');
+document.getElementById('actionText').innerHTML='<b>Anchor:</b> '+groups.invest.map(a=>a.id).join(', ')+' \u00B7 <b>Watch:</b> '+groups.monitor.map(a=>a.id).join(', ')+' \u00B7 <b>No fresh entries:</b> '+groups.avoid.map(a=>a.id).join(', ')+'. Stage adds gradually; full context in the macro brief above. <i style="opacity:.7">(at release this line is written fresh daily by the 7am run)</i>';
 
 /* Markets tabs */
 function oppCard(a,mode){const rb=RECMAP[a.rec];const m=mom3(a);const isUp=mode==='short'?a.day>=0:m>=0;
  const big=mode==='short'?(a.day>=0?'+':'')+a.day.toFixed(2)+'%':(m>=0?'+':'')+m.toFixed(1)+'%';
- const lab=mode==='short'?'today · '+a.cur+fmt(a.px):'3 months · '+a.cur+fmt(a.px);
+ const lab=mode==='short'?'today \u00B7 '+a.cur+fmt(a.px):'3 months \u00B7 '+a.cur+fmt(a.px);
  return '<div class="opp"><div class="top"><div><div class="tk">'+a.id+'</div><div class="nm">'+a.name+'</div></div><span class="badge '+rb[0]+'">'+rb[1]+'</span></div>'+
  '<div class="perf"><span class="v num '+(isUp?'up':'down')+'">'+big+'</span><span class="lab">'+lab+'</span></div>'+
  '<div class="ospark" data-spark="'+a.id+'"></div>'+
@@ -744,7 +744,7 @@ const PUB={'yahoo':['Y!','#5f01d1','#fff'],'cnbc':['C','#005594','#fff'],'coinde
 function publogo(p){const k=(p||'').toLowerCase();let m=null;for(const key in PUB){if(k.includes(key)){m=PUB[key];break;}}
  if(!m)m=[(p||'?').replace(/[^A-Za-z]/g,'').slice(0,2).toUpperCase()||'?','#64748b','#fff'];
  return '<span class="plogo" style="background:'+m[1]+';color:'+m[2]+'">'+m[0]+'</span>';}
-function story(n,cross){return '<div class="story"><div class="thumb" style="background:linear-gradient(135deg,'+n.c1+','+n.c2+')">'+publogo(n.p)+'<span class="tsrc">'+n.p+'</span></div><div class="body"><span class="kicker">'+(cross?'From the '+cross+' desk':'')+'<span class="date">'+n.dt+'</span></span><h4>'+n.h+'</h4><p>'+n.s+'</p><a class="btn" href="'+n.u+'" target="_blank" rel="noopener">Read full article →</a><span class="src">Source: '+n.p+'</span></div></div>';}
+function story(n,cross){return '<div class="story"><div class="thumb" style="background:linear-gradient(135deg,'+n.c1+','+n.c2+')">'+publogo(n.p)+'<span class="tsrc">'+n.p+'</span></div><div class="body"><span class="kicker">'+(cross?'From the '+cross+' desk':'')+'<span class="date">'+n.dt+'</span></span><h4>'+n.h+'</h4><p>'+n.s+'</p><a class="btn" href="'+n.u+'" target="_blank" rel="noopener">Read full article \u2192</a><span class="src">Source: '+n.p+'</span></div></div>';}
 function padNews(primary,alt,altLabel){const out=primary.map(n=>story(n,null));let i=0;
  while(out.length%3!==0&&i<alt.length){out.push(story(alt[i],altLabel));i++;}
  return out.join('');}
@@ -756,7 +756,7 @@ window.sw=function(p,el){document.querySelectorAll('.panel').forEach(x=>x.classL
 try{const t=localStorage.getItem('beta_mock_tab');if(t&&t!=='long'){const el=document.querySelector('.tab[data-p="'+t+'"]');if(el)window.sw(t,el);}}catch(e){}
 
 /* runstatus */
-if(DASH.build_meta){const bm=DASH.build_meta;document.getElementById('rm-time').textContent=bm.run_end||'…';document.getElementById('rm-dur').textContent=(bm.elapsed_s||0)+'s';document.getElementById('rm-calls').textContent=bm.data_calls||'…';document.getElementById('rm-sha').textContent=(bm.github_sha||'').slice(0,7);document.getElementById('rm-tok').textContent='~'+Number(bm.tokens_est||0).toLocaleString();document.getElementById('rm-ver').textContent=bm.build_version||'2.0.0';}
+if(DASH.build_meta){const bm=DASH.build_meta;document.getElementById('rm-time').textContent=bm.run_end||'\u2026';document.getElementById('rm-dur').textContent=(bm.elapsed_s||0)+'s';document.getElementById('rm-calls').textContent=bm.data_calls||'\u2026';document.getElementById('rm-sha').textContent=(bm.github_sha||'').slice(0,7);document.getElementById('rm-tok').textContent='~'+Number(bm.tokens_est||0).toLocaleString();document.getElementById('rm-ver').textContent=bm.build_version||'2.0.0';}
 
 renderSparks();drawMain();syncSel();planSelect('NVDA',false);
 try{const pg=localStorage.getItem('beta_page');if(pg==='plan')showPage('plan');}catch(e){}
