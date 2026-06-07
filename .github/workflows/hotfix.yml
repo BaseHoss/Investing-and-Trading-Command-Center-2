@@ -1,0 +1,60 @@
+name: Hotfix Template
+
+on:
+  push:
+    paths:
+      - '_hotfix/go.txt'
+
+permissions:
+  contents: write
+
+jobs:
+  hotfix:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Apply template fix + version bump
+        run: |
+          cat > /tmp/fix.py << 'PY'
+          s = open('dashboard_template_beta.html').read()
+          old = "document.getElementById('assets-quote').innerHTML=[...LIVE.slice(6).map(id=>asetChip({...A[id],live:true,ref:false})),...Q.map(q=>({...q,live:false,ref:false})),...GCCREF].map(asetChip).join('');"
+          new = "document.getElementById('assets-quote').innerHTML=[...LIVE.slice(6).map(id=>({...A[id],live:true,ref:false})),...Q.map(q=>({...q,live:false,ref:false})),...GCCREF].map(asetChip).join('');"
+          n = s.count(old)
+          if n == 1:
+              open('dashboard_template_beta.html', 'w').write(s.replace(old, new))
+              print('template fixed')
+          elif n == 0 and new in s:
+              print('template already fixed')
+          else:
+              raise SystemExit('unexpected pattern count: %d' % n)
+          import json
+          d = json.load(open('dashboard_data_beta.json'))
+          d['build_meta']['build_version'] = '2.5.3'
+          json.dump(d, open('dashboard_data_beta.json', 'w'), separators=(',', ':'))
+          print('data version -> 2.5.3')
+          PY
+          python3 /tmp/fix.py
+
+      - name: Rebuild dashboard
+        run: |
+          python3 refresh_dashboard_beta.py
+          cp investing-dashboard-beta.html index.html
+          echo "Built: $(wc -c < index.html) bytes"
+
+      - name: Commit and push
+        run: |
+          git config user.name "dashboard-bot"
+          git config user.email "dashboard-bot@noreply.github.com"
+          git rm -r --quiet _hotfix || true
+          git rm --quiet .github/workflows/hotfix.yml || true
+          git add -A
+          git commit -m "Hotfix 2.5.3: explorer row double-render fix"
+          git pull --rebase origin main
+          git push
