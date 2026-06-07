@@ -1,0 +1,58 @@
+name: Rebuild Dashboard
+
+on:
+  push:
+    paths:
+      - 'dashboard_data_beta.json'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Validate JSON
+        run: |
+          python3 -c "
+          import json, sys
+          try:
+              data = json.load(open('dashboard_data_beta.json'))
+              required = ['asof','assets','quoteOnly','news','macro','vix','active_situations','build_meta']
+              missing = [k for k in required if k not in data]
+              if missing:
+                  print('ERROR: missing keys:', missing)
+                  sys.exit(1)
+              if len(data['assets']) != 9:
+                  print('ERROR: expected 9 assets, got', len(data['assets']))
+                  sys.exit(1)
+              print('JSON valid. asof=%s assets=%d build=%s news.long=%d news.short=%d' % (
+                  data['asof'], len(data['assets']), data['build_meta'].get('build_version','?'),
+                  len(data['news'].get('long',[])), len(data['news'].get('short',[]))))
+          except json.JSONDecodeError as e:
+              print('INVALID JSON:', e)
+              sys.exit(1)
+          "
+
+      - name: Rebuild dashboard
+        run: |
+          python3 refresh_dashboard_beta.py
+          cp investing-dashboard-beta.html index.html
+          echo "Built: $(wc -c < index.html) bytes"
+
+      - name: Commit and push
+        run: |
+          git config user.name "dashboard-bot"
+          git config user.email "dashboard-bot@noreply.github.com"
+          git add index.html investing-dashboard-beta.html
+          git diff --staged --quiet && echo "No changes to commit" || git commit -m "Auto-rebuild — $(date +%Y-%m-%d)"
+          git push
