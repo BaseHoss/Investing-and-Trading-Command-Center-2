@@ -1,0 +1,40 @@
+name: Daily Delta Rebuild
+
+on:
+  push:
+    paths:
+      - 'daily_update.json'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  daily:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Apply delta (DB append + data refresh + validation)
+        run: python3 apply_daily_update.py
+
+      - name: Build dashboard
+        run: |
+          python3 refresh_dashboard_beta.py
+          cp investing-dashboard-beta.html index.html
+          echo "Built: $(wc -c < index.html) bytes"
+
+      - name: Commit and push
+        run: |
+          git config user.name "dashboard-bot"
+          git config user.email "dashboard-bot@noreply.github.com"
+          git add -A
+          git diff --staged --quiet && echo "No changes to commit" || git commit -m "Daily delta — $(date +%Y-%m-%d)"
+          git pull --rebase origin main
+          git push
