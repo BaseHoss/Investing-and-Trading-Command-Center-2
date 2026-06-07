@@ -36,7 +36,7 @@ for sym, rows in db['prices'].items():
     a = d['assets'][sym]
     a['dates'] = [r[0] for r in rows]; a['prices'] = [r[1] for r in rows]
     a['px'] = rows[-1][1]; a['day'] = round((rows[-1][1] / rows[-2][1] - 1) * 100, 2)
-for k in ['vix', 'macro', 'asof', 'news', 'active_situations', 'build_meta']:
+for k in ['vix', 'macro', 'asof', 'news', 'active_situations', 'build_meta', 'action']:
     if k in u: d[k] = u[k]
 d.setdefault('build_meta', {})['price_db'] = target
 for field in ['notes', 'rec', 'risk', 'earnings', 'fund']:
