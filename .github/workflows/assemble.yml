@@ -1,0 +1,70 @@
+name: Assemble Parts
+
+on:
+  push:
+    paths:
+      - '_parts/go.txt'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  assemble:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Assemble files from parts
+        run: |
+          cat _parts/tpl_*.part > dashboard_template_beta.html
+          cat _parts/data_*.part > dashboard_data_beta.json
+          wc -c dashboard_template_beta.html dashboard_data_beta.json
+
+      - name: Verify hashes against manifest
+        run: |
+          while read -r f sha len; do
+            [ -z "$f" ] && continue
+            got=$(git hash-object "$f")
+            gotlen=$(wc -c < "$f")
+            if [ "$got" != "$sha" ] || [ "$gotlen" -ne "$len" ]; then
+              echo "HASH MISMATCH $f: got $got ($gotlen bytes), expected $sha ($len bytes)"
+              exit 1
+            fi
+            echo "VERIFIED $f $sha $len"
+          done < _parts/manifest.txt
+
+      - name: Validate JSON
+        run: |
+          python3 -c "
+          import json, sys
+          data = json.load(open('dashboard_data_beta.json'))
+          required = ['asof','assets','quoteOnly','news','macro','vix','active_situations','build_meta']
+          missing = [k for k in required if k not in data]
+          if missing:
+              print('ERROR: missing keys:', missing); sys.exit(1)
+          if len(data['assets']) != 9:
+              print('ERROR: expected 9 assets, got', len(data['assets'])); sys.exit(1)
+          print('JSON valid. asof=%s build=%s' % (data['asof'], data['build_meta'].get('build_version','?')))
+          "
+
+      - name: Build dashboard
+        run: |
+          python3 refresh_dashboard_beta.py
+          cp investing-dashboard-beta.html index.html
+          echo "Built: $(wc -c < index.html) bytes"
+
+      - name: Commit and push
+        run: |
+          git config user.name "dashboard-bot"
+          git config user.email "dashboard-bot@noreply.github.com"
+          git rm -r --quiet _parts
+          git add dashboard_template_beta.html dashboard_data_beta.json investing-dashboard-beta.html index.html
+          git commit -m "Assemble verified files + build index.html"
+          git push
