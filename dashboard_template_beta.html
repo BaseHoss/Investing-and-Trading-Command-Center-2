@@ -203,7 +203,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);line
 .story{background:var(--card2);border:1px solid var(--line);border-radius:var(--rad-md);overflow:hidden;display:flex;flex-direction:column}
 .story .thumb{height:64px;display:flex;align-items:center;justify-content:flex-start;gap:10px;padding:0 14px}
 .plogo{width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex:0 0 auto;border:2px solid rgba(255,255,255,.85);letter-spacing:-.3px}
-.story .thumb .tsrc{color:rgba(255,255,255,.96);font-weight:800;font-size:13.5px;text-shadow:0 1px 3px rgba(0,0,0,.25)}
+.story .thumb{min-width:0}.story .thumb .tsrc{color:rgba(255,255,255,.98);font-weight:800;font-size:13.5px;text-shadow:0 1px 4px rgba(0,0,0,.55);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;flex:1}
 .story .body{padding:12px 13px 14px;display:flex;flex-direction:column;flex:1}
 .story .kicker{font-size:10px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--acc2)}
 .story .date{font-size:10px;color:var(--muted);float:right}
@@ -744,7 +744,7 @@ const PUB={'yahoo':['Y!','#5f01d1','#fff'],'cnbc':['C','#005594','#fff'],'coinde
 function publogo(p){const k=(p||'').toLowerCase();let m=null;for(const key in PUB){if(k.includes(key)){m=PUB[key];break;}}
  if(!m)m=[(p||'?').replace(/[^A-Za-z]/g,'').slice(0,2).toUpperCase()||'?','#64748b','#fff'];
  return '<span class="plogo" style="background:'+m[1]+';color:'+m[2]+'">'+m[0]+'</span>';}
-function story(n,cross){return '<div class="story"><div class="thumb" style="background:linear-gradient(135deg,'+n.c1+','+n.c2+')">'+publogo(n.p)+'<span class="tsrc">'+n.p+'</span></div><div class="body"><span class="kicker">'+(cross?'From the '+cross+' desk':'')+'<span class="date">'+n.dt+'</span></span><h4>'+n.h+'</h4><p>'+n.s+'</p><a class="btn" href="'+n.u+'" target="_blank" rel="noopener">Read full article \u2192</a><span class="src">Source: '+n.p+'</span></div></div>';}
+function story(n,cross){var pub=(n.s||n.p||'Newswire');var para=(n.p||n.s||'');var kick=(cross?'From the '+cross+' desk ':'');return '<div class="story"><div class="thumb" style="background:linear-gradient(135deg,'+(n.c1||'#1d49c4')+','+(n.c2||'#22d3ee')+')">'+publogo(pub)+'<span class="tsrc" title="'+pub+'">'+pub+'</span></div><div class="body"><span class="kicker">'+kick+'<span class="date">'+(n.dt||'')+'</span></span><h4>'+(n.h||'Market update')+'</h4><p>'+para+'</p><a class="btn" href="'+(n.u||'#')+'" target="_blank" rel="noopener">Read full article \u2192</a><span class="src">Source: '+pub+'</span></div></div>';}
 function padNews(primary,alt,altLabel){const out=primary.map(n=>story(n,null));let i=0;
  while(out.length%3!==0&&i<alt.length){out.push(story(alt[i],altLabel));i++;}
  return out.join('');}
