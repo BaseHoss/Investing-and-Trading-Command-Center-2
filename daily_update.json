@@ -1,1 +1,212 @@
-{"rows":{"NVDA":[["2026-06-08",208.64]],"MSFT":[["2026-06-08",411.74]],"INTC":[["2026-06-08",110.27]],"SPY":[["2026-06-08",739.22]],"QQQ":[["2026-06-08",716.07]],"SMH":[["2026-06-08",598.16]],"AVGO":[["2026-06-08",396.6]],"BTC":[["2026-06-08",63062.98]],"GOLD":[["2026-06-08",4363.4]]},"vix":{"px":18.92,"day":-12.04,"asof":"2026-06-09","note":"CBOE VIX via FMP index-quote (free tier); auto-activates vix_spike_regime when px>=28 or day>=30"},"asof":"2026-06-09","macro":"<b>Monday relief rally:</b> The S&P 500 closed +0.3% at 7,406 and the Nasdaq +0.86% at 25,930 on June 8 as chip stocks rebounded from Friday's 2.6% rout, which ended a nine-week win streak after May payrolls (172k) doubled consensus and revived Fed-hike bets. VIX collapsed 12% to 18.92, signaling cooler near-term fear. <b>All eyes now turn to Wednesday's May CPI</b> (April ran 3.8% YoY; consensus near 4.2%) ahead of the June 16-17 FOMC, where markets price roughly 99% no change but expect a hawkish tone under new Chair Warsh. Iran-Israel strikes and elevated crude keep a geopolitical and inflation tail risk live.","action":"Hold positions into Wednesday's CPI print; Monday's bounce and the VIX drop are constructive, but a hot May reading above 4.2% would likely re-ignite the rate-driven semis selloff, so wait for the inflation data to clear before adding chip exposure (NVDA, SMH, AVGO).","notes":{"NVDA":"Nvidia is doubling down on CPUs, expanding from server CPUs into the client CPU market, a fresh competitive threat to Intel and AMD. Cramer flags sovereign AI as a powerful new demand driver that reduces NVDA's hyperscaler dependence.","AVGO":"Broadcom broke its losing streak Monday after last week's weak-guidance-driven rout that dragged the whole AI-chip complex lower. Sentiment is stabilizing but the guidance overhang and high volatility remain.","INTC":"Nvidia's move into the client CPU market adds a new competitive threat to Intel's core x86 franchise on top of existing data-center share pressure."},"news":{"long":[{"k":"L1","dt":"2026-06-08","c1":"#7c3aed","c2":"#a78bfa","ic":"N","h":"Nvidia doubles down on CPUs, enters client CPU market; fresh threat to Intel and AMD","p":"Nvidia expects strong server-CPU revenue this year and is moving into client CPUs too, widening its competitive front against the legacy x86 incumbents.","s":"fool.com","u":"https://www.fool.com/investing/2026/06/08/nvidia-is-doubling-down-on-the-cpu-market-thats-ba/"},{"k":"L2","dt":"2026-06-08","c1":"#7c3aed","c2":"#a78bfa","ic":"M","h":"Stocks find relief as chips rebound; Broadcom breaks losing streak ahead of inflation data","p":"Tech advanced Monday with the S&P 500 up 0.3% and Nasdaq up 0.86%. Broadcom snapped its slide that began on weak guidance, with May CPI due Wednesday.","s":"investors.com","u":"https://www.investors.com/market-trend/the-big-picture/dow-jones-sp500-nasdaq-inflation-report-broadcom-avgo-stock/"},{"k":"L3","dt":"2026-06-08","c1":"#7c3aed","c2":"#a78bfa","ic":"C","h":"Cramer: sovereign AI is Nvidia's powerful new growth driver, easing hyperscaler reliance","p":"Governments are investing heavily in domestic AI infrastructure, creating chip demand less tied to near-term hyperscaler returns and diversifying NVDA's customer base.","s":"cnbc.com","u":"https://www.cnbc.com/2026/06/08/jim-cramer-says-sovereign-ai-is-nvidias-powerful-new-growth-driver.html"},{"k":"L4","dt":"2026-06-09","c1":"#7c3aed","c2":"#a78bfa","ic":"F","h":"Hot CPI report likely to keep Fed on guard; rate-hike odds creeping higher","p":"With April CPI at 3.8% and May expected near 4.2%, a firm print would reinforce a hawkish hold at the June 16-17 FOMC and keep year-end hike risk on the table.","s":"finance.yahoo.com","u":"https://finance.yahoo.com/economy/article/hot-cpi-report-likely-to-put-fed-on-guard-for-longer-lasting-inflation-meanwhile-rate-hike-odds-are-rising-141806600.html"},{"k":"L5","dt":"2026-06-08","c1":"#7c3aed","c2":"#a78bfa","ic":"G","h":"Stocks rebound, led by chips, as CPI data looms Wednesday and PPI Thursday","p":"Markets steadied after Friday's selloff, but anything above expectations in this week's inflation prints could keep investors cautious rather than buying the dip.","s":"schwab.com","u":"https://www.schwab.com/learn/story/stock-market-update-open"}],"short":[{"k":"S1","dt":"2026-06-09","c1":"#f97316","c2":"#fdba74","ic":"B","h":"Bitcoin steady above $63,000 as AI stocks rebound; BNB and SOL edge higher","p":"BTC closed June 8 near $63,063 and held above $63k into Tuesday, trailing the equity rebound that was helped by an Nvidia-SK Hynix chip pact and a strong SpaceX IPO.","s":"coindesk.com","u":"https://www.coindesk.com/business/2026/06/09/bitcoin-steady-above-usd63-000-bnb-sol-edge-higher-as-ai-stocks-rebound"},{"k":"S2","dt":"2026-06-09","c1":"#f97316","c2":"#fdba74","ic":"C","h":"BTC at a CPI crossroads: rally toward $70k or slide back to $60k","p":"The rebound from the $60k region has eased selling pressure, but Wednesday's CPI may decide whether buyers can build momentum or whether support gives way again.","s":"invezz.com","u":"https://invezz.com/news/2026/06/09/bitcoin-price-prediction-will-cpi-trigger-a-rally-to-70k-or-crash-to-60k/"},{"k":"S3","dt":"2026-06-09","c1":"#f97316","c2":"#fdba74","ic":"I","h":"Coinbase strategist: institutions are buying BTC near $60-65k, ETF and corporate demand firm","p":"John D'Agostino says large investors prefer accumulating Bitcoin in weakness rather than chasing highs, suggesting the recent crash has not scared off institutional buyers.","s":"crypto.news","u":"https://crypto.news/bitcoin-crash-fails-to-scare-institutions-coinbase-strategist-says/"},{"k":"S4","dt":"2026-06-09","c1":"#f97316","c2":"#fdba74","ic":"N","h":"Arca rejects Saylor's AI-rotation theory, blames Strategy's own 32 BTC sale for last week's crash","p":"The debate over what drove the drawdown matters for positioning: a one-off forced sale is less bearish than a structural rotation out of crypto into AI equities.","s":"coindesk.com","u":"https://www.coindesk.com/markets/2026/06/09/saylor-blamed-ai-for-bitcoin-crash-arca-has-one-word-for-that-nonsense"},{"k":"S5","dt":"2026-06-09","c1":"#f97316","c2":"#fdba74","ic":"R","h":"Hayes warns higher oil could push Trump into anti-AI rhetoric, hitting stocks and Bitcoin together","p":"A scenario where elevated crude pressures the administration to turn on the AI trade is a reminder that BTC and tech equities remain correlated risk assets in this regime.","s":"cryptopolitan.com","u":"https://www.cryptopolitan.com/arthur-hayes-higher-oil-trump-anti-ai-btc/"}]},"active_situations":["fed_hawkish_repricing","tariff_trade_shock","war_geopolitical_shock","oil_supply_shock","guidance_shock_semis","crypto_outflow_regime","ai_monetization_doubt"],"build_meta":{"run_start":"2026-06-09T05:54:31","run_end":"2026-06-09T05:58:32","elapsed_s":241,"data_calls":14,"tokens_est":62000,"lookback":"3Y","build_version":"2.5.3"}}
+{
+  "rows": {
+    "NVDA": [
+      [
+        "2026-06-09",
+        208.19
+      ]
+    ],
+    "MSFT": [
+      [
+        "2026-06-09",
+        403.41
+      ]
+    ],
+    "INTC": [
+      [
+        "2026-06-09",
+        107.92
+      ]
+    ],
+    "SPY": [
+      [
+        "2026-06-09",
+        737.05
+      ]
+    ],
+    "QQQ": [
+      [
+        "2026-06-09",
+        707.83
+      ]
+    ],
+    "SMH": [
+      [
+        "2026-06-09",
+        591.01
+      ]
+    ],
+    "AVGO": [
+      [
+        "2026-06-09",
+        392.16
+      ]
+    ],
+    "BTC": [
+      [
+        "2026-06-09",
+        62044.82
+      ]
+    ],
+    "GOLD": [
+      [
+        "2026-06-09",
+        4283.0
+      ]
+    ]
+  },
+  "vix": {
+    "px": 19.87,
+    "day": 5.02,
+    "asof": "2026-06-09",
+    "note": "VIX elevated; intraday spike to 23.24 before settling at 19.87 as hawkish repricing follows blowout May jobs report"
+  },
+  "asof": "2026-06-09",
+  "macro": "<b>Jobs shock reignites Fed hike bets, pressuring tech and semis.</b> U.S. May payrolls surged to 172,000 - nearly double the 88,000 consensus - pushing market-implied odds of at least one Fed hike above 60% by year-end. The Nasdaq fell 4% and S&P 500 dropped 2.6% on June 5 (worst session in over a year); markets remain under pressure on June 9 with VIX at 19.87 (intraday high 23.24). Broadcom's Q3 AI chip guidance miss ($16B vs. $17.2B estimated) adds sector-specific headwinds; Wednesday's May CPI print is the next major catalyst.",
+  "action": "Hold existing positions and avoid adding to high-multiple AI names (NVDA, AVGO) ahead of Wednesday CPI; GOLD at $4,283 offers relative safe-haven exposure while rate-hike risk persists.",
+  "notes": {
+    "NVDA": "NVDA held near key support at $208 during Tuesday's continued sell-off. Elon Musk's claim of building chips 2 to 3 times better than Nvidia at 10 percent of the cost is an unverified speculative risk - not an immediate threat - but adds overhang to an already pressured name.",
+    "AVGO": "AVGO is down roughly 11 percent since the June 3 earnings report where Q3 AI chip guidance ($16B vs. $17.2B estimated) disappointed despite a revenue beat. Recovery attempts remain fragile; next earnings Sept 3, 2026.",
+    "INTC": "INTC faces compounding headwinds: Nvidia expanding into client CPUs threatens Intel's core x86 franchise on top of existing data-center share pressure. Musk chip claim, if real, would be a further longer-term headwind."
+  },
+  "earnings": {
+    "NVDA": {
+      "next": "2026-08-26",
+      "eps_est": 2.07
+    },
+    "AVGO": {
+      "next": "2026-09-03",
+      "eps_est": 3.21
+    }
+  },
+  "news": {
+    "long": [
+      {
+        "k": "L1",
+        "dt": "2026-06-09",
+        "c1": "#7c3aed",
+        "c2": "#a78bfa",
+        "ic": "N",
+        "h": "Nvidia tumbles to key support level amid continued market sell-off",
+        "p": "NVDA held near a critical technical support zone as AI and semiconductor names remained under pressure from hawkish jobs data and rate-hike bets. A decisive bounce from support would be a bullish signal.",
+        "s": "investors.com",
+        "u": "https://www.investors.com/stock-lists/stocks-near-a-buy-zone/dow-jones-ai-giant-nvidia-stock-nvda-market-sell-off/"
+      },
+      {
+        "k": "L2",
+        "dt": "2026-06-09",
+        "c1": "#7c3aed",
+        "c2": "#a78bfa",
+        "ic": "M",
+        "h": "Elon Musk claims chip 2-3x better than Nvidia at 10 percent of the cost - is he bluffing?",
+        "p": "Musk told Baron Capital founder Ron Baron that Tesla is building AI chips far superior to Nvidia at a fraction of the cost. Analysts are skeptical given no proof of concept, but the headline adds competitive overhang to NVDA and INTC.",
+        "s": "247wallst.com",
+        "u": "https://247wallst.com/investing/2026/06/09/elon-musk-says-hes-building-a-chip-2-to-3-times-better-than-nvidia-at-10-the-cost-is-he-bluffing/"
+      },
+      {
+        "k": "L3",
+        "dt": "2026-06-09",
+        "c1": "#7c3aed",
+        "c2": "#a78bfa",
+        "ic": "A",
+        "h": "Broadcom stock down more than 10 percent after investor update - what happened?",
+        "p": "AVGO's Q3 AI chip revenue guidance of $16B came in below the $17.2B analyst estimate despite strong Q2 results (revenue up 48% YoY). The market sold the guidance gap; next earnings Sept 3, EPS estimate $3.21.",
+        "s": "fool.com",
+        "u": "https://www.fool.com/investing/2026/06/09/whats-going-on-with-broadcom-stock/"
+      },
+      {
+        "k": "L4",
+        "dt": "2026-06-09",
+        "c1": "#7c3aed",
+        "c2": "#a78bfa",
+        "ic": "F",
+        "h": "Stock markets sell off - is Nvidia an excellent buy on the dip?",
+        "p": "Semiconductor stocks fell after the May jobs report showed the economy adding nearly double the expected jobs, reinforcing hawkish Fed expectations. Analysts debate whether the AI structural story justifies buying NVDA into weakness.",
+        "s": "fool.com",
+        "u": "https://www.fool.com/investing/2026/06/09/stock-markets-crashing-is-nvidia-an-excellent-stoc/"
+      },
+      {
+        "k": "L5",
+        "dt": "2026-06-09",
+        "c1": "#7c3aed",
+        "c2": "#a78bfa",
+        "ic": "G",
+        "h": "Nasdaq plunges 4%, S&P 500 sinks as jobs report fuels Fed hike bets and AI trade stalls",
+        "p": "May payrolls: 172,000 vs. 88,000 expected. Market-implied Fed hike odds rose above 60%. Nasdaq suffered its worst day in over a year on June 5; follow-through selling continued June 9 with VIX at 19.87.",
+        "s": "finance.yahoo.com",
+        "u": "https://finance.yahoo.com/markets/live/stock-market-today-dow-sp-500-nasdaq-sink-as-jobs-report-fuels-fed-hike-bets-chip-stocks-sell-off-230134285.html"
+      }
+    ],
+    "short": [
+      {
+        "k": "S1",
+        "dt": "2026-06-09",
+        "c1": "#f97316",
+        "c2": "#fdba74",
+        "ic": "B",
+        "h": "Bitcoin slides to $62,044 as risk-off tone from hawkish jobs data hits crypto",
+        "p": "BTC fell from $63,063 to $62,044 (-1.6%) on June 9 as the broader risk-off sell-off following the May jobs shock weighed on crypto alongside equities.",
+        "s": "coindesk.com",
+        "u": "https://www.coindesk.com/business/2026/06/09/bitcoin-steady-above-usd63-000-bnb-sol-edge-higher-as-ai-stocks-rebound"
+      },
+      {
+        "k": "S2",
+        "dt": "2026-06-09",
+        "c1": "#f97316",
+        "c2": "#fdba74",
+        "ic": "C",
+        "h": "BTC at a CPI crossroads: rally toward $70k or slide back to $60k",
+        "p": "The rebound from the $60k region eased selling pressure, but Wednesday's CPI may decide whether buyers can build momentum or whether support gives way again.",
+        "s": "invezz.com",
+        "u": "https://invezz.com/news/2026/06/09/bitcoin-price-prediction-will-cpi-trigger-a-rally-to-70k-or-crash-to-60k/"
+      },
+      {
+        "k": "S3",
+        "dt": "2026-06-09",
+        "c1": "#f97316",
+        "c2": "#fdba74",
+        "ic": "I",
+        "h": "Coinbase strategist: institutions are buying BTC near $60-65k, ETF and corporate demand firm",
+        "p": "Large investors prefer accumulating Bitcoin in weakness rather than chasing highs, suggesting the recent drawdown has not scared off institutional buyers.",
+        "s": "crypto.news",
+        "u": "https://crypto.news/bitcoin-crash-fails-to-scare-institutions-coinbase-strategist-says/"
+      },
+      {
+        "k": "S4",
+        "dt": "2026-06-09",
+        "c1": "#f97316",
+        "c2": "#fdba74",
+        "ic": "N",
+        "h": "Arca rejects Saylor AI-rotation theory, blames Strategy forced sale for last week's BTC crash",
+        "p": "The debate over the drawdown driver matters: a one-off forced sale is far less bearish for BTC than a structural rotation out of crypto into AI equities.",
+        "s": "coindesk.com",
+        "u": "https://www.coindesk.com/markets/2026/06/09/saylor-blamed-ai-for-bitcoin-crash-arca-has-one-word-for-that-nonsense"
+      },
+      {
+        "k": "S5",
+        "dt": "2026-06-09",
+        "c1": "#f97316",
+        "c2": "#fdba74",
+        "ic": "R",
+        "h": "Hayes warns higher oil could push Trump into anti-AI rhetoric, hitting stocks and Bitcoin together",
+        "p": "A scenario where elevated crude pressures the administration to turn on the AI trade is a reminder that BTC and tech equities remain correlated risk assets in this regime.",
+        "s": "cryptopolitan.com",
+        "u": "https://www.cryptopolitan.com/arthur-hayes-higher-oil-trump-anti-ai-btc/"
+      }
+    ]
+  },
+  "active_situations": [
+    "fed_hawkish_repricing",
+    "guidance_shock_semis",
+    "ai_monetization_doubt"
+  ],
+  "build_meta": {
+    "run_start": "2026-06-10T00:46:58",
+    "run_end": "2026-06-10T00:54:38",
+    "elapsed_s": 460,
+    "data_calls": 15,
+    "tokens_est": 55000,
+    "lookback": "3Y",
+    "build_version": "2.5.3"
+  }
+}
