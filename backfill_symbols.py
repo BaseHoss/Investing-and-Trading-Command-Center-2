@@ -4,7 +4,12 @@ Fetches daily history from FMP REST (FMP_API_KEY repo secret), aligns each symbo
 NVDA's canonical calendar (forward-fill any gaps), appends to the price DB, and adds
 the asset to dashboard_data_beta.json with default editorial. Idempotent: symbols
 already in the DB are skipped. Resilient: a symbol that fails to fetch is skipped, not
-fatal. The next daily run enriches notes/rec/fundamentals/earnings for the new names."""
+fatal. The next daily run enriches notes/rec/fundamentals/earnings for the new names.
+
+Adds = the fixed NEW list (initial 20-universe expansion) PLUS any entries in an
+optional gem_adds.json (the gem-scout writes these for capped weekly auto-adds):
+  [{"id":"PLTR","fmp_symbol":"PLTR","name":"Palantir","risk":"High"}, ...]
+"""
 import os, json, glob, sys, bisect, datetime, urllib.request, urllib.parse
 
 KEY = os.environ.get('FMP_API_KEY', '').strip()
@@ -26,7 +31,15 @@ NEW = [
     ('SILVER', 'SIUSD', 'Silver (oz)', 'High'),
     ('OIL', 'USO', 'Oil (USO)', 'High'),
 ]
-NOTE = ('Newly added to the tracked universe (server backfill). Editorial review pending; '
+if os.path.exists('gem_adds.json'):
+    try:
+        for g in json.load(open('gem_adds.json')):
+            NEW.append((g['id'], g.get('fmp_symbol', g['id']), g.get('name', g['id']), g.get('risk', 'High')))
+        print('gem_adds.json: queued', len(json.load(open('gem_adds.json'))), 'gem add(s)')
+    except Exception as e:
+        print('WARN: could not read gem_adds.json:', e)
+
+NOTE = ('Newly added to the tracked universe. Editorial review pending; '
         'default Monitor call until the next analyst pass.')
 
 def fetch(sym, frm, to):
@@ -85,8 +98,9 @@ for cid, fsym, name, risk in NEW:
 
 db['meta']['last_updated'] = datetime.datetime.now().isoformat(timespec='seconds')
 json.dump(db, open(db_file, 'w'), separators=(',', ':'))
-data.setdefault('build_meta', {})['build_version'] = '2.6.0'
-data['build_meta']['price_db'] = db_file
+data.setdefault('build_meta', {})['price_db'] = db_file
+if any(a.startswith('AAPL ') for a in added):   # the initial 20-universe expansion
+    data['build_meta']['build_version'] = '2.6.0'
 json.dump(data, open('dashboard_data_beta.json', 'w'), separators=(',', ':'))
 print('ADDED:', added)
 print('SKIPPED:', skipped)
