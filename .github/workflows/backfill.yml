@@ -1,0 +1,51 @@
+name: Backfill Symbols
+
+on:
+  push:
+    paths:
+      - '_backfill/go.txt'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  backfill:
+    runs-on: ubuntu-latest
+    env:
+      FMP_API_KEY: ${{ secrets.FMP_API_KEY }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Guard secret
+        run: |
+          if [ -z "$FMP_API_KEY" ]; then
+            echo "ERROR: FMP_API_KEY secret is not set. Add it in Settings > Secrets and variables > Actions."
+            exit 1
+          fi
+
+      - name: Run backfill
+        run: python3 backfill_symbols.py
+
+      - name: Validate + rebuild
+        run: |
+          python3 -c "import json;d=json.load(open('dashboard_data_beta.json'));assert len(d['assets'])>=9,'too few assets';print('assets',len(d['assets']),'build',d['build_meta'].get('build_version'))"
+          python3 refresh_dashboard_beta.py
+          cp investing-dashboard-beta.html index.html
+          echo "Built: $(wc -c < index.html) bytes"
+
+      - name: Commit and push
+        run: |
+          git config user.name "dashboard-bot"
+          git config user.email "dashboard-bot@noreply.github.com"
+          git rm -r --quiet _backfill || true
+          git add -A
+          git commit -m "Backfill: expand tracked universe (build 2.6.0)"
+          git pull --rebase origin main
+          git push
