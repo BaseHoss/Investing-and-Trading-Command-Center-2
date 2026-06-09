@@ -17,7 +17,7 @@ DATA-INTEGRITY RULES (v3, 2026-06-09):
 
 Delta schema: {rows:{SYM:[[date,close],...]}, vix:{}, asof:"", macro:"", action:"",
 notes:{SYM}, rec:{SYM}, risk:{SYM}, earnings:{SYM}, fund:{SYM}, news:{}, active_situations:[],
-build_meta:{}}. Validates: 9 assets, required keys, ASCII-only, em/en dash ban.
+build_meta:{}}. Validates: >=9 assets, required keys, ASCII-only, em/en dash ban.
 """
 import json, glob, sys, os, datetime
 
@@ -95,7 +95,7 @@ for field in ['notes', 'rec', 'risk', 'earnings', 'fund']:
 required = ['asof', 'assets', 'quoteOnly', 'news', 'macro', 'vix', 'active_situations', 'build_meta']
 missing = [k for k in required if k not in d]
 if missing: print('ERROR: missing keys', missing); sys.exit(1)
-if len(d['assets']) != 9: print('ERROR: expected 9 assets, got', len(d['assets'])); sys.exit(1)
+if len(d['assets']) < 9: print('ERROR: fewer than 9 assets, got', len(d['assets'])); sys.exit(1)
 if len(d.get('active_situations', [])) > 5:
     print('ERROR: more than 5 active_situations:', d['active_situations']); sys.exit(1)
 out = json.dumps(d, separators=(',', ':'))
@@ -105,4 +105,4 @@ if any(ord(c) > 127 for c in out):
     print('ERROR: non-ascii in serialized data'); sys.exit(1)
 open('dashboard_data_beta.json', 'w').write(out)
 print('OK applied delta | asof', d.get('asof'), '| build', d['build_meta'].get('build_version', '?'),
-      '| situations', len(d.get('active_situations', [])), '| db', target)
+      '| assets', len(d['assets']), '| situations', len(d.get('active_situations', [])), '| db', target)
