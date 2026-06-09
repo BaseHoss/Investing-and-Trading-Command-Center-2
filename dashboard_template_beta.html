@@ -57,11 +57,11 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);line
 .dur{display:inline-flex;background:var(--card2);border:1px solid var(--line);border-radius:10px;padding:3px}
 .dur button{border:0;background:transparent;font-weight:700;font-size:11.5px;color:var(--muted);padding:7px 10px;border-radius:8px;cursor:pointer}
 .dur button.on{background:var(--acc);color:#fff}
-.exprow{display:grid;grid-template-columns:60px 1fr;gap:8px;margin-top:8px;align-items:stretch}
+.exprow{display:grid;grid-template-columns:64px 1fr;gap:8px;margin-top:8px;align-items:center}
 .rowlab{font-size:8.5px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);display:flex;flex-direction:column;justify-content:center;line-height:1.4;border-right:1px dashed var(--line);padding-right:6px}
 .rowlab b{font-size:9px}
 .aset6{display:grid;grid-template-columns:repeat(6,1fr);gap:7px}
-.aset{border:1px solid var(--line);background:var(--card2);border-radius:10px;padding:7px 9px;cursor:pointer;text-align:left;transition:.12s;min-width:0}
+.aset{border:1px solid var(--line);background:var(--card2);border-radius:10px;padding:7px 9px;cursor:pointer;text-align:left;transition:.12s;min-width:0;min-height:56px;display:flex;flex-direction:column;justify-content:center}
 .aset.t-live{border-color:color-mix(in srgb,var(--green) 28%,var(--line))}
 .aset.t-quote{border-color:color-mix(in srgb,var(--amber) 30%,var(--line))}
 .aset.t-ref{opacity:.82}
@@ -229,6 +229,13 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);line
  .chwrap{height:220px}.chstats .big{font-size:22px}
  .brand .btxt{display:none}
  .pgbtn{width:auto;flex:1;padding:9px 6px;font-size:12px}
+ .modhead{flex-direction:column;align-items:flex-start;gap:7px}
+ .modhead h2{font-size:15px}
+ .dur{display:flex;flex-wrap:wrap;width:100%;justify-content:center;gap:2px}
+ .dur button{flex:1 0 auto;min-width:38px;padding:7px 4px;font-size:11px}
+ .runstatus{gap:5px 12px;padding:10px 12px;font-size:10px}
+ .runstatus span[style]{margin-left:0 !important}
+ .topnav .in{padding:9px 12px}
 }
 [data-design="a"]{--font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
  --bg:#070b14;--card:#0e1626;--card2:#111c33;--ink:#e9eef8;--muted:#8a94ab;--line:#1c2740;
@@ -285,8 +292,8 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);line
   <section class="card module" id="explorer">
     <div class="modhead"><h2><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 17l5-6 4 3 6-8"/></svg> Price Explorer &#xB7; all positions</h2>
       <div class="dur" id="dur"><button data-d="1D">1D</button><button data-d="1W">1W</button><button data-d="1M">1M</button><button data-d="3M" class="on">3M</button><button data-d="6M">6M</button><button data-d="YTD">YTD</button><button data-d="1Y">1Y</button><button data-d="2Y">2Y</button><button data-d="3Y">3Y</button></div></div>
-    <div class="exprow"><div class="rowlab"><b>Live &#xB7; stocks &amp; semis</b><span>full price history</span></div><div class="aset6" id="assets-live"></div></div>
-    <div class="exprow"><div class="rowlab"><b>Live &#xB7; index, gold, crypto</b><span>+ GCC reference theses</span></div><div class="aset6" id="assets-quote"></div></div>
+    <div class="exprow"><div class="rowlab"><b>STOCKS</b><span>&amp; semis</span></div><div class="aset6" id="assets-live"></div></div>
+    <div class="exprow"><div class="rowlab"><b>MARKETS</b><span>index, gold, crypto</span></div><div class="aset6" id="assets-quote"></div></div>
     <div class="chstats"><span class="big num" id="cs-px">&#x2026;</span><span class="nm" id="cs-nm"></span><span class="mv num" id="cs-mv"></span><span class="badge b-monitor" id="cs-rec">&#x2026;</span></div>
     <div class="chwrap"><canvas id="chMain"></canvas><div class="chempty" id="chempty"><div class="ce1" id="ce1"></div><div class="ce2" id="ce2"></div></div></div>
     <div class="chnote" id="chnote"></div>
