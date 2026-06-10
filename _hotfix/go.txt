@@ -1,1 +1,1 @@
-go explorer 2.6.0 retry
+go explorer 2.6.0 v3
