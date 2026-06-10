@@ -22,7 +22,7 @@ rep('.aset{border:1px solid var(--line);background:var(--card2);border-radius:10
     '.aset{border:1px solid var(--line);background:var(--card2);border-radius:10px;padding:7px 9px;cursor:pointer;text-align:left;transition:.12s;position:relative;min-width:0;min-height:56px;', 'css-aset-rel')
 
 rep('function asetChip(x){const up=x.day>=0;',
-    r'''function asetChip(x,row){const up=x.day>=0;const xb=row?'<button class="aset-x" title="remove" onclick="event.stopPropagation();explRemove('+row+',\''+x.id+'\')">×</button>':'';''', 'asetchip-sig')
+    r'''function asetChip(x,row){const up=x.day>=0;const xb=row?'<button class="aset-x" title="remove" onclick="event.stopPropagation();explRemove('+row+',\''+x.id+'\')">&#215;</button>':'';''', 'asetchip-sig')
 rep('''return '<div class="aset '+cls+'" data-id="'+x.id+'"><div class="t">''',
     '''return '<div class="aset '+cls+'" data-id="'+x.id+'">'+xb+'<div class="t">''', 'asetchip-x')
 
@@ -35,7 +35,7 @@ var DEF2=['SPY','QQQ','DIA','GOLD','SILVER','BTC'];
 function loadSel(k,def){try{var v=JSON.parse(localStorage.getItem(k));if(v&&v.length){v=v.filter(poolById);if(v.length)return v.slice(0,6);}}catch(e){}return def.filter(poolById).slice(0,6);}
 var SEL=[loadSel('beta_expl1',DEF1),loadSel('beta_expl2',DEF2)];
 function saveSel(){try{localStorage.setItem('beta_expl1',JSON.stringify(SEL[0]));localStorage.setItem('beta_expl2',JSON.stringify(SEL[1]));}catch(e){}}
-function renderExplorer(){[1,2].forEach(function(row){var ids=SEL[row-1];var el=document.getElementById(row===1?'assets-live':'assets-quote');el.innerHTML=ids.map(function(id){var x=poolById(id);return x?asetChip(x,row):'';}).join('');var used={};SEL[0].concat(SEL[1]).forEach(function(i){used[i]=1;});var opts=['<option value="">+ add</option>'];POOL.forEach(function(p){if(!used[p.id])opts.push('<option value="'+p.id+'">'+p.id+(p.name?' · '+p.name:'')+'</option>');});var s=document.getElementById('add-'+row);if(s){s.innerHTML=opts.join('');s.disabled=ids.length>=6;}});document.querySelectorAll('#assets-live .aset, #assets-quote .aset').forEach(function(e){e.onclick=function(){window.pick(e.dataset.id);};});syncSel();}
+function renderExplorer(){[1,2].forEach(function(row){var ids=SEL[row-1];var el=document.getElementById(row===1?'assets-live':'assets-quote');el.innerHTML=ids.map(function(id){var x=poolById(id);return x?asetChip(x,row):'';}).join('');var used={};SEL[0].concat(SEL[1]).forEach(function(i){used[i]=1;});var opts=['<option value="">+ add</option>'];POOL.forEach(function(p){if(!used[p.id])opts.push('<option value="'+p.id+'">'+p.id+(p.name?' &#183; '+p.name:'')+'</option>');});var s=document.getElementById('add-'+row);if(s){s.innerHTML=opts.join('');s.disabled=ids.length>=6;}});document.querySelectorAll('#assets-live .aset, #assets-quote .aset').forEach(function(e){e.onclick=function(){window.pick(e.dataset.id);};});syncSel();}
 window.explAdd=function(row,id){if(!id)return;if(SEL[row-1].length>=6)return;if(SEL[0].indexOf(id)>=0||SEL[1].indexOf(id)>=0)return;SEL[row-1].push(id);saveSel();renderExplorer();};
 window.explRemove=function(row,id){SEL[row-1]=SEL[row-1].filter(function(x){return x!==id;});saveSel();renderExplorer();};'''
 rep(old_render, new_render, 'render-block')
