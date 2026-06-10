@@ -13,6 +13,9 @@ DATA-INTEGRITY RULES (v3, 2026-06-09):
 - FUSE-SAFE: the DB filename rotates as end_date advances; os.remove of the old file
   can fail on a OneDrive/FUSE mount (lock). That is caught and downgraded to a warning
   (the newest file always wins via sorted glob); the run is NOT failed for it.
+- TOLERANT SYMBOLS: a symbol present in the delta but not in this DB is skipped with a
+  warning (not fatal), so a lagging local mirror does not fail when the authoritative
+  repo DB already carries more symbols.
 - TYPE COERCION: vix.px / vix.day coerced to float (strips %, +). Non-numeric -> fail.
 
 Delta schema: {rows:{SYM:[[date,close],...]}, vix:{}, asof:"", macro:"", action:"",
@@ -39,7 +42,7 @@ db = json.load(open(dbf))
 rejected_future, upserts, appends = [], 0, 0
 for sym, rows in (u.get('rows') or {}).items():
     if sym not in db['prices']:
-        print('ERROR: unknown symbol', sym); sys.exit(1)
+        print('WARN: symbol not in this DB (skipped; authoritative copy may have it):', sym); continue
     existing = {str(d)[:10]: round(float(p), 2) for d, p in db['prices'][sym]}
     for d, p in rows:
         d = str(d)[:10]; p = round(float(p), 2)
