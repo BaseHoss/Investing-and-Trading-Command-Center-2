@@ -20,8 +20,8 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Apply explorer hotfix
-        run: python3 hotfix_explorer.py
+      - name: Apply hotfix
+        run: python3 hotfix_consult.py
 
       - name: Rebuild dashboard
         run: |
@@ -35,6 +35,6 @@ jobs:
           git config user.email "dashboard-bot@noreply.github.com"
           git rm -r --quiet _hotfix || true
           git add dashboard_template_beta.html dashboard_data_beta.json index.html investing-dashboard-beta.html
-          git diff --staged --quiet && echo "no changes" || git commit -m "Hotfix 2.6.0: Price Explorer add/remove dropdown"
+          git diff --staged --quiet && echo "no changes" || git commit -m "Hotfix 2.6.1: dropdown price/change + adaptive consultant picks"
           git pull --rebase origin main
           git push
