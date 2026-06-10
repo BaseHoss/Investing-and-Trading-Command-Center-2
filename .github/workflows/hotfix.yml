@@ -1,0 +1,41 @@
+name: Hotfix Template
+
+on:
+  push:
+    paths:
+      - '_hotfix/go.txt'
+
+permissions:
+  contents: write
+
+jobs:
+  hotfix:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Apply explorer hotfix
+        run: python3 hotfix_explorer.py
+
+      - name: Rebuild dashboard
+        run: |
+          python3 refresh_dashboard_beta.py
+          cp investing-dashboard-beta.html index.html
+          echo "Built: $(wc -c < index.html) bytes"
+
+      - name: Commit and push
+        run: |
+          git config user.name "dashboard-bot"
+          git config user.email "dashboard-bot@noreply.github.com"
+          git rm -r --quiet _hotfix || true
+          git rm --quiet .github/workflows/hotfix.yml hotfix_explorer.py || true
+          git add -A
+          git commit -m "Hotfix 2.6.0: Price Explorer add/remove dropdown"
+          git pull --rebase origin main
+          git push
