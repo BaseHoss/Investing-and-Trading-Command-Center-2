@@ -34,8 +34,7 @@ jobs:
           git config user.name "dashboard-bot"
           git config user.email "dashboard-bot@noreply.github.com"
           git rm -r --quiet _hotfix || true
-          git rm --quiet .github/workflows/hotfix.yml hotfix_explorer.py || true
-          git add -A
-          git commit -m "Hotfix 2.6.0: Price Explorer add/remove dropdown"
+          git add dashboard_template_beta.html dashboard_data_beta.json index.html investing-dashboard-beta.html
+          git diff --staged --quiet && echo "no changes" || git commit -m "Hotfix 2.6.0: Price Explorer add/remove dropdown"
           git pull --rebase origin main
           git push
